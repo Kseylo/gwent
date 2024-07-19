@@ -11,6 +11,8 @@
     "test": "jest ./"
   },
   "dependencies": {
+    "@mantine/core": "^7.11.2",
+    "@mantine/hooks": "^7.11.2",
     "dotenv": "^16.0.2",
     "eslint-config-prettier": "^8.5.0",
     "prettier": "^2.7.1",
@@ -29,6 +31,9 @@
     "jest": "^28",
     "jest-environment-jsdom": "^29.0.1",
     "lefthook": "^1.3.9",
+    "postcss": "^8.4.39",
+    "postcss-preset-mantine": "^1.16.0",
+    "postcss-simple-vars": "^7.0.1",
     "prettier": "^2.7.1",
     "ts-jest": "^28.0.8",
     "typescript": "^4.8.2",
