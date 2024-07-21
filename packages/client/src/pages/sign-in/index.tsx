@@ -21,11 +21,15 @@ export default function SignIn() {
         <Divider my={'lg'} />
         <form>
           <Stack>
-            <TextInput label={'Логин'} placeholder={'Введите логин'} required />
+            <TextInput
+              label={'Логин'}
+              placeholder={'Введите логин'}
+              withAsterisk
+            />
             <PasswordInput
               label={'Пароль'}
               placeholder={'Введите пароль'}
-              required
+              withAsterisk
             />
           </Stack>
           <Group justify={'space-between'} mt={'xl'}>
