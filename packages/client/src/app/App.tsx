@@ -8,6 +8,7 @@ import Profile from '../pages/profile'
 import Forum from '../pages/forum'
 import Leaderboard from '../pages/leaderboard'
 import { Routes } from '../shared/config/routes'
+import AuthLayout from './ui/auth-layout'
 
 const theme = createTheme({})
 
@@ -15,14 +16,6 @@ const router = createBrowserRouter([
   {
     index: true,
     element: <Home />,
-  },
-  {
-    path: Routes.SIGN_IN,
-    element: <SignIn />,
-  },
-  {
-    path: Routes.SIGN_UP,
-    element: <SignUp />,
   },
   {
     path: Routes.PROFILE,
@@ -35,6 +28,19 @@ const router = createBrowserRouter([
   {
     path: Routes.LEADERBOARD,
     element: <Leaderboard />,
+  },
+  {
+    element: <AuthLayout />,
+    children: [
+      {
+        path: Routes.SIGN_IN,
+        element: <SignIn />,
+      },
+      {
+        path: Routes.SIGN_UP,
+        element: <SignUp />,
+      },
+    ],
   },
 ])
 
