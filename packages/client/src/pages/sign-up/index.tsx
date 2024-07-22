@@ -11,10 +11,10 @@ import {
   InputBase,
 } from '@mantine/core'
 import { Link } from 'react-router-dom'
-import { Routes } from '../../shared/config/routes'
+import { Routes } from '@/shared/config/routes'
 import { IMaskInput } from 'react-imask'
 import { useForm } from '@mantine/form'
-import { InputValidator } from '../../shared/utils/input-validator'
+import { InputValidator } from '@/shared/utils/input-validator'
 
 export default function SignUp() {
   const form = useForm({
