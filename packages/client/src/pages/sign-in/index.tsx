@@ -9,13 +9,53 @@ import {
   Text,
   TextInput,
 } from '@mantine/core'
-import { Link } from 'react-router-dom'
+import {
+  Link,
+  useSubmit,
+  ActionFunctionArgs,
+  useNavigation,
+  redirect,
+} from 'react-router-dom'
 import { Routes } from '@/shared/config/routes'
 import { useForm } from '@mantine/form'
 import { InputValidator } from '@/shared/utils/input-validator'
+import { SignInValues } from '@/shared/api/auth/sign-in'
+import { signIn } from '@/shared/api/auth/sign-in'
+import { notifications } from '@mantine/notifications'
+
+export async function action({ request }: ActionFunctionArgs) {
+  const notificationId = notifications.show({
+    title: 'Входим...',
+    message: '',
+    loading: true,
+  })
+  try {
+    await signIn(await request.json())
+  } catch (error) {
+    notifications.update({
+      id: notificationId,
+      title: 'Ошибка',
+      message: 'Неверный логин или пароль',
+      color: 'red',
+      loading: false,
+    })
+    return { ok: false }
+  }
+  notifications.update({
+    id: notificationId,
+    title: 'Вход выполнен',
+    message: 'Добро пожаловать!',
+    color: 'green',
+    loading: false,
+  })
+  return redirect(Routes.HOME)
+}
 
 export default function SignIn() {
-  const form = useForm({
+  const submit = useSubmit()
+  const { state } = useNavigation()
+
+  const form = useForm<SignInValues>({
     mode: 'uncontrolled',
     validateInputOnBlur: true,
     initialValues: {
@@ -28,11 +68,19 @@ export default function SignIn() {
     },
   })
 
+  const handleSubmit = (values: SignInValues) => {
+    submit(JSON.stringify(values), {
+      method: 'post',
+      action: Routes.SIGN_IN,
+      encType: 'application/json',
+    })
+  }
+
   return (
     <Paper radius={'md'} p={'xl'} w={'30rem'} withBorder>
       <Text size={'lg'}>Добро пожаловать</Text>
       <Divider my={'lg'} />
-      <form onSubmit={form.onSubmit(values => console.log(values))}>
+      <form onSubmit={form.onSubmit(handleSubmit)}>
         <Stack>
           <TextInput
             label={'Логин'}
@@ -53,7 +101,9 @@ export default function SignIn() {
           <Anchor component={Link} to={Routes.SIGN_UP}>
             Нет аккаунта? Зарегистрируйтесь
           </Anchor>
-          <Button type={'submit'}>Войти</Button>
+          <Button type={'submit'} disabled={state === 'submitting'}>
+            Войти
+          </Button>
         </Group>
       </form>
     </Paper>
