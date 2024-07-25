@@ -11,13 +11,15 @@ import Leaderboard from '@/pages/leaderboard'
 import { Routes } from '@/shared/config/routes'
 import AuthLayout from './ui/auth-layout'
 import RootLayout from './ui/root-layout'
-import ProtectedLayout from '@/app/ui/protected-layout'
+import ProtectedLayout from './ui/protected-layout'
+import RootBoundary from './ui/root-boundary'
 
 const theme = createTheme({})
 
 const router = createBrowserRouter([
   {
     element: <RootLayout />,
+    errorElement: <RootBoundary />,
     children: [
       {
         element: <ProtectedLayout />,
