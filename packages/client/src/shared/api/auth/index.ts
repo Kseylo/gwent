@@ -1,4 +1,4 @@
-import { BASE_URL } from '@/shared/api'
+import { BASE_URL } from '../config'
 
 export * from './sign-in'
 export * from './sign-up'

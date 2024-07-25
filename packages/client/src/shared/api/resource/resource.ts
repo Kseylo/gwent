@@ -1,3 +1,5 @@
+import { BASE_URL } from '../config'
+
 export function getResourceByPath(path: string) {
-  return fetch(`https://ya-praktikum.tech/api/v2/resources/${path}`)
+  return fetch(`${BASE_URL}/resources/${path}`)
 }
