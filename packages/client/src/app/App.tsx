@@ -11,6 +11,7 @@ import Leaderboard from '@/pages/leaderboard'
 import { Routes } from '@/shared/config/routes'
 import AuthLayout from './ui/auth-layout'
 import RootLayout from './ui/root-layout'
+import ProtectedLayout from '@/app/ui/protected-layout'
 
 const theme = createTheme({})
 
@@ -19,35 +20,40 @@ const router = createBrowserRouter([
     element: <RootLayout />,
     children: [
       {
-        index: true,
-        element: <Home />,
+        element: <ProtectedLayout />,
+        children: [
+          {
+            index: true,
+            element: <Home />,
+          },
+          {
+            path: Routes.PROFILE,
+            element: <Profile />,
+          },
+          {
+            path: Routes.FORUM,
+            element: <Forum />,
+          },
+          {
+            path: Routes.LEADERBOARD,
+            element: <Leaderboard />,
+          },
+        ],
       },
       {
-        path: Routes.PROFILE,
-        element: <Profile />,
-      },
-      {
-        path: Routes.FORUM,
-        element: <Forum />,
-      },
-      {
-        path: Routes.LEADERBOARD,
-        element: <Leaderboard />,
-      },
-    ],
-  },
-  {
-    element: <AuthLayout />,
-    children: [
-      {
-        path: Routes.SIGN_IN,
-        element: <SignIn />,
-        action: signInAction,
-      },
-      {
-        path: Routes.SIGN_UP,
-        element: <SignUp />,
-        action: signUpAction,
+        element: <AuthLayout />,
+        children: [
+          {
+            path: Routes.SIGN_IN,
+            element: <SignIn />,
+            action: signInAction,
+          },
+          {
+            path: Routes.SIGN_UP,
+            element: <SignUp />,
+            action: signUpAction,
+          },
+        ],
       },
     ],
   },
