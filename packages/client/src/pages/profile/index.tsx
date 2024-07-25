@@ -3,11 +3,11 @@ import { getResourceByPath } from '@/shared/api/resource'
 import {
   ChangePasswordArgs,
   ChangeProfileArgs,
-  User,
   changeAvatar,
   changePassword,
   changeProfile,
 } from '@/shared/api/user'
+import { InputValidator } from '@/shared/utils/input-validator'
 import {
   Stack,
   Button,
@@ -16,9 +16,11 @@ import {
   InputBase,
   FileButton,
   PasswordInput,
+  Skeleton,
 } from '@mantine/core'
+import { useForm } from '@mantine/form'
 import { useState } from 'react'
-import { useForm, Controller } from 'react-hook-form'
+import { IMaskInput } from 'react-imask'
 import { useSelector } from 'react-redux'
 
 interface ChangePasswordFormProps {
@@ -28,39 +30,35 @@ interface ChangePasswordFormProps {
 }
 
 function ChangePasswordForm({ onSubmit, onCancel }: ChangePasswordFormProps) {
-  const { handleSubmit, control } = useForm({
-    defaultValues: {
+  const form = useForm({
+    mode: 'uncontrolled',
+    validateInputOnBlur: true,
+    initialValues: {
       oldPassword: '',
       newPassword: '',
+    },
+    validate: {
+      oldPassword: InputValidator.validatePassword,
+      newPassword: InputValidator.validatePassword,
     },
   })
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={form.onSubmit(onSubmit)}>
       <Stack>
-        <Controller
-          name="oldPassword"
-          control={control}
-          render={({ field }) => (
-            <PasswordInput
-              type="password"
-              label="Старый пароль"
-              placeholder="Старый пароль"
-              {...field}
-            />
-          )}
+        <PasswordInput
+          label="Старый пароль"
+          placeholder="Старый пароль"
+          withAsterisk
+          key={form.key('oldPassword')}
+          {...form.getInputProps('oldPassword')}
         />
-        <Controller
-          name="newPassword"
-          control={control}
-          render={({ field }) => (
-            <PasswordInput
-              type="password"
-              label="Новый пароль"
-              placeholder="Новый пароль"
-              {...field}
-            />
-          )}
+        <PasswordInput
+          label="Новый пароль"
+          placeholder="Новый пароль"
+          withAsterisk
+          key={form.key('newPassword')}
+          {...form.getInputProps('newPassword')}
         />
         <Button color="red" onClick={onCancel}>
           Отменить
@@ -78,8 +76,10 @@ interface ProfileInfoProps {
 function ProfileInfo({ isEdit, onSubmit, onCancelEdit }: ProfileInfoProps) {
   const { user } = useSelector((state: RootState) => state.auth)
 
-  const { handleSubmit, control } = useForm<User>({
-    defaultValues: {
+  const form = useForm({
+    mode: 'uncontrolled',
+    validateInputOnBlur: true,
+    initialValues: {
       email: user?.email ?? '',
       login: user?.login ?? '',
       first_name: user?.first_name ?? '',
@@ -87,82 +87,68 @@ function ProfileInfo({ isEdit, onSubmit, onCancelEdit }: ProfileInfoProps) {
       display_name: user?.display_name ?? '',
       phone: user?.phone ?? '',
     },
+    validate: {
+      email: InputValidator.validateEmail,
+      login: InputValidator.validateLogin,
+      first_name: InputValidator.validateName,
+      second_name: InputValidator.validateName,
+      display_name: InputValidator.validateName,
+      phone: InputValidator.validatePhone,
+    },
   })
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={form.onSubmit(onSubmit)}>
       <Stack>
-        <Controller
-          name="email"
-          control={control}
-          render={({ field }) => (
-            <InputBase
-              label="Почта"
-              placeholder="example@email.ru"
-              readOnly={!isEdit}
-              {...field}
-            />
-          )}
+        <InputBase
+          label="Почта"
+          placeholder="example@email.ru"
+          readOnly={!isEdit}
+          withAsterisk
+          key={form.key('email')}
+          {...form.getInputProps('email')}
         />
-        <Controller
-          name="login"
-          control={control}
-          render={({ field }) => (
-            <InputBase
-              label="Логин"
-              placeholder="test_1234"
-              readOnly={!isEdit}
-              {...field}
-            />
-          )}
+        <InputBase
+          label="Логин"
+          placeholder="test_1234"
+          readOnly={!isEdit}
+          withAsterisk
+          key={form.key('login')}
+          {...form.getInputProps('login')}
         />
-        <Controller
-          name="first_name"
-          control={control}
-          render={({ field }) => (
-            <InputBase
-              label="Имя"
-              placeholder="Иван"
-              readOnly={!isEdit}
-              {...field}
-            />
-          )}
+        <InputBase
+          label="Имя"
+          placeholder="Иван"
+          readOnly={!isEdit}
+          withAsterisk
+          key={form.key('first_name')}
+          {...form.getInputProps('first_name')}
         />
-        <Controller
-          name="second_name"
-          control={control}
-          render={({ field }) => (
-            <InputBase
-              label="Фамилия"
-              placeholder="Иванов"
-              readOnly={!isEdit}
-              {...field}
-            />
-          )}
+        <InputBase
+          label="Фамилия"
+          placeholder="Иванов"
+          readOnly={!isEdit}
+          withAsterisk
+          key={form.key('second_name')}
+          {...form.getInputProps('second_name')}
         />
-        <Controller
-          name="display_name"
-          control={control}
-          render={({ field }) => (
-            <InputBase
-              label="Имя в игре"
-              placeholder="ivanivanov"
-              readOnly={!isEdit}
-              {...field}
-            />
-          )}
+        <InputBase
+          label="Имя в игре"
+          placeholder="ivanivanov"
+          readOnly={!isEdit}
+          withAsterisk
+          key={form.key('display_name')}
+          {...form.getInputProps('display_name')}
         />
-        <Controller
-          name="phone"
-          control={control}
-          render={({ field }) => (
-            <InputBase
-              label="Телефон"
-              placeholder="79999999999"
-              readOnly={!isEdit}
-              {...field}
-            />
-          )}
+        <InputBase
+          label="Телефон"
+          placeholder="+7 (999) 999-99-99"
+          component={IMaskInput}
+          mask="+7 (000) 000-00-00"
+          readOnly={!isEdit}
+          withAsterisk
+          key={form.key('phone')}
+          {...form.getInputProps('phone')}
         />
         {isEdit ? (
           <>
@@ -192,8 +178,8 @@ export default function ProfilePage() {
   }
 
   return (
-    <Stack maw={460} p={20} mx="auto">
-      <ProfileAvatar path="/test-path" />
+    <Stack w="100%" maw={460} mx="auto" p={20}>
+      <ProfileAvatar />
       <Stack>
         {isChangePassword ? (
           <ChangePasswordForm
@@ -233,20 +219,29 @@ export default function ProfilePage() {
   )
 }
 
-interface ProfileAvatar {
-  path: string
-}
-function ProfileAvatar({ path }: ProfileAvatar) {
-  // TODO: Добавить скелетон + обработку ошибок
+function ProfileAvatar() {
+  const { user } = useSelector((state: RootState) => state.auth)
+  // TODO: Добавить предварительную загрузку
   return (
-    <Paper w={100} h={100} radius="50%" withBorder mx="auto">
-      <Image
-        src={getResourceByPath(path)}
-        alt="profile image"
-        fit="cover"
-        h="100%"
-        w="100%"
-      />
+    <Paper
+      w={100}
+      h={100}
+      radius="50%"
+      withBorder
+      mx="auto"
+      style={{ overflow: 'hidden' }}>
+      {user?.avatar ? (
+        <Image
+          src={getResourceByPath(user.avatar)}
+          alt="profile image"
+          fit="cover"
+          h="100%"
+          w="100%"
+        />
+      ) : (
+        // TODO: Добавить моковую картинку
+        <Skeleton width="100%" height="100%" animate={false} />
+      )}
     </Paper>
   )
 }
