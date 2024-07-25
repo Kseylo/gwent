@@ -4,7 +4,7 @@ export enum Routes {
   SIGN_UP = '/sign-up',
   PROFILE = '/profile',
   FORUM = '/forum',
-  LEADERBOARD = '/leaderboard',
+  LEADER_BOARD = '/leader-board',
 }
 
 export const navLinks = [
