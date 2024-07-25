@@ -1,0 +1,28 @@
+.container {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+}
+
+.status {
+  font-size: 2.375rem;
+  line-height: 1;
+  text-align: center;
+  font-weight: 900;
+  color: var(--mantine-color-gray-2);
+  margin-bottom: var(--mantine-spacing-xl);
+}
+
+.sorry {
+  text-align: center;
+  font-weight: 900;
+  margin-bottom: var(--mantine-spacing-xl);
+}
+
+.description {
+  max-width: 32rem;
+  margin: var(--mantine-spacing-xl) auto;
+  text-align: center;
+  color: var(--mantine-color-dimmed);
+  font-size: var(--mantine-font-size-lg);
+  line-height: var(--mantine-line-height-lg);
+}
