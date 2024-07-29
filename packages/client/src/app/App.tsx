@@ -6,7 +6,7 @@ import Home from '@/pages/home'
 import SignIn, { action as signInAction } from '@/pages/sign-in'
 import SignUp, { action as signUpAction } from '@/pages/sign-up'
 import Profile from '@/pages/profile'
-import Forum from '@/pages/forum'
+import Forum, { loader as forumLoader } from '@/pages/forum'
 import Thread from '@/pages/thread'
 import ForumList from '@/pages/forum-list'
 import Leaderboard from '@/pages/leaderboard'
@@ -41,6 +41,7 @@ const router = createBrowserRouter([
           {
             path: `${Routes.FORUM}/:slug`,
             element: <Forum />,
+            loader: forumLoader,
           },
           {
             path: `${Routes.FORUM}/:slug/thread/:threadId`,

@@ -2,35 +2,12 @@ import { Group, Stack, Text, Paper } from '@mantine/core'
 import styles from './forum-list.module.css'
 import { Link } from 'react-router-dom'
 import { Routes } from '@/shared/config/routes'
-
-const forums = [
-  {
-    id: 1,
-    title: 'Новые игры',
-    threads: 222,
-    messages: 345,
-    slug: 'new-games',
-  },
-  {
-    id: 2,
-    title: 'Геймдизайнеры',
-    threads: 5,
-    messages: 14,
-    slug: 'game-designers',
-  },
-  {
-    id: 3,
-    title: 'Технологии',
-    threads: 590,
-    messages: 895,
-    slug: 'tech',
-  },
-]
+import { dummyData } from '@/shared/config/forum'
 
 export default function ForumList() {
   return (
     <Stack>
-      {forums.map(forum => (
+      {dummyData.map(forum => (
         <Paper
           key={forum.id}
           className={styles.forum}
