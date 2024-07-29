@@ -6,3 +6,10 @@ export enum Routes {
   FORUM = '/forum',
   LEADERBOARD = '/leaderboard',
 }
+
+export const navLinks = [
+  { label: 'Главная', href: Routes.HOME },
+  { label: 'Профиль', href: Routes.PROFILE },
+  { label: 'Форум', href: Routes.FORUM },
+  { label: 'Лидерборд', href: Routes.LEADERBOARD },
+]
