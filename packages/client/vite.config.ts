@@ -8,6 +8,10 @@ import path from 'path'
 export default defineConfig({
   server: {
     port: Number(process.env.CLIENT_PORT) || 3000,
+    host: '0.0.0.0',
+    watch: {
+      usePolling: true
+    }
   },
   define: {
     __SERVER_PORT__: process.env.SERVER_PORT,
