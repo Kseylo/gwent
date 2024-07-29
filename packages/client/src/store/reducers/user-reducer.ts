@@ -49,9 +49,6 @@ export const getUser = () => (dispatch: AppDispatch) => {
         dispatch(actions.setUser(data));
       }
     })
-    .catch(() => {
-
-    })
 }
 export type ActionsType = InferAppActions<typeof actions>;
 export default UserReducer;
