@@ -1,12 +1,17 @@
-import { Link, Outlet, useLocation } from 'react-router-dom'
+import { Outlet, NavLink } from 'react-router-dom'
 import { useDisclosure } from '@mantine/hooks'
-import { AppShell, Group, Burger, Title, NavLink } from '@mantine/core'
+import {
+  AppShell,
+  Group,
+  Burger,
+  Title,
+  NavLink as MantineNavLink,
+} from '@mantine/core'
 import { navLinks } from '@/shared/config/routes'
 
 export default function ProtectedLayout() {
   const [mobileOpened, { toggle: toggleMobile }] = useDisclosure()
   const [desktopOpened, { toggle: toggleDesktop }] = useDisclosure(true)
-  const location = useLocation()
 
   return (
     <AppShell
@@ -36,12 +41,11 @@ export default function ProtectedLayout() {
       </AppShell.Header>
       <AppShell.Navbar p={'md'}>
         {navLinks.map(link => (
-          <NavLink
-            key={link.label}
-            component={Link}
+          <MantineNavLink
+            key={link.href}
+            component={NavLink}
             to={link.href}
             label={link.label}
-            active={location.pathname === link.href}
           />
         ))}
       </AppShell.Navbar>
