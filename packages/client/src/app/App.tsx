@@ -7,6 +7,8 @@ import SignIn, { action as signInAction } from '@/pages/sign-in'
 import SignUp, { action as signUpAction } from '@/pages/sign-up'
 import Profile from '@/pages/profile'
 import Forum from '@/pages/forum'
+import Thread from '@/pages/thread'
+import ForumList from '@/pages/forum-list'
 import Leaderboard from '@/pages/leaderboard'
 import { Routes } from '@/shared/config/routes'
 import AuthLayout from './ui/auth-layout'
@@ -34,7 +36,15 @@ const router = createBrowserRouter([
           },
           {
             path: Routes.FORUM,
+            element: <ForumList />,
+          },
+          {
+            path: `${Routes.FORUM}/:slug`,
             element: <Forum />,
+          },
+          {
+            path: `${Routes.FORUM}/:slug/thread/:threadId`,
+            element: <Thread />,
           },
           {
             path: Routes.LEADERBOARD,
