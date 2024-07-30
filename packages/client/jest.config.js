@@ -1,4 +1,6 @@
 import dotenv from 'dotenv'
+import fetch from 'cross-fetch';
+
 dotenv.config()
 
 export default {
@@ -8,6 +10,7 @@ export default {
   setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
   globals: {
     __SERVER_PORT__: process.env.SERVER_PORT,
+    fetch: fetch
   },
   moduleNameMapper: {
     '\\.(css|less)$': 'identity-obj-proxy',
