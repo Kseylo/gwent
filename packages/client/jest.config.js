@@ -8,7 +8,6 @@ export default {
   setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
   globals: {
     __SERVER_PORT__: process.env.SERVER_PORT,
-    fetch
   },
   moduleNameMapper: {
     '\\.(css|less)$': 'identity-obj-proxy',
