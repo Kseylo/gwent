@@ -1,6 +1,7 @@
 import App from './App'
 import { render, screen } from '@testing-library/react'
 import { Provider } from 'react-redux';
+import fetch from 'cross-fetch';
 
 const appContent = 'Home Page'
 
