@@ -1,4 +1,5 @@
 import './App.css'
+import { useEffect } from "react";
 import { createTheme, MantineProvider } from '@mantine/core'
 import { Notifications } from '@mantine/notifications'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
@@ -15,7 +16,9 @@ import AuthLayout from './ui/auth-layout'
 import RootLayout from './ui/root-layout'
 import ProtectedLayout from './ui/protected-layout'
 import RootBoundary from './ui/root-boundary'
-
+import { useSelector } from 'react-redux';
+import { getUser } from "@/store/reducers/user-reducer";
+import { RootState, useAppDispatch } from '@/store';
 const theme = createTheme({})
 
 const router = createBrowserRouter([
@@ -72,7 +75,14 @@ const router = createBrowserRouter([
   },
 ])
 
-function App() {
+const App = () => {
+  const dispatch = useAppDispatch();
+  // const user = useSelector((state: RootState) => state.UserReducer.user)
+
+  useEffect(() => {
+    dispatch(getUser())
+  }, [])
+
   return (
     <MantineProvider theme={theme} defaultColorScheme={'dark'}>
       <Notifications />
@@ -80,5 +90,4 @@ function App() {
     </MantineProvider>
   )
 }
-
-export default App
+export default App;
