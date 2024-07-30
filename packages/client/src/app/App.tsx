@@ -75,9 +75,9 @@ const router = createBrowserRouter([
   },
 ])
 
-export default function App() {
+const App = () => {
   const dispatch = useAppDispatch();
-  const user = useSelector((state: RootState) => state.UserReducer.user)
+  // const user = useSelector((state: RootState) => state.UserReducer.user)
 
   useEffect(() => {
     dispatch(getUser())
@@ -90,3 +90,4 @@ export default function App() {
     </MantineProvider>
   )
 }
+export default App;

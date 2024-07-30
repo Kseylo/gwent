@@ -37,14 +37,9 @@ export const getUser = () => (dispatch: AppDispatch) => {
     credentials: 'include',
   })
     .then(function(response) {
-      // The response is a Response instance.
-      // You parse the data into a useable format using `.json()`
       return response.json();
     })
     .then((data) => {
-      // return resp
-      // @ts-ignore
-      // console.log(arguments)
       if (data) {
         dispatch(actions.setUser(data));
       }
