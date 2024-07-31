@@ -1,4 +1,3 @@
-import { RootState } from '@/app/store'
 import { getResourceByPath } from '@/shared/api/resource'
 import {
   ChangePasswordArgs,
@@ -8,6 +7,7 @@ import {
   changeProfile,
 } from '@/shared/api/user'
 import { InputValidator } from '@/shared/utils/input-validator'
+import { RootState } from '@/store'
 import {
   Stack,
   Button,
@@ -74,7 +74,7 @@ interface ProfileInfoProps {
   onCancelEdit: VoidFunction
 }
 function ProfileInfo({ isEdit, onSubmit, onCancelEdit }: ProfileInfoProps) {
-  const { user } = useSelector((state: RootState) => state.auth)
+  const { user } = useSelector((state: RootState) => state.UserReducer)
 
   const form = useForm({
     mode: 'uncontrolled',
@@ -220,7 +220,7 @@ export default function ProfilePage() {
 }
 
 function ProfileAvatar() {
-  const { user } = useSelector((state: RootState) => state.auth)
+  const { user } = useSelector((state: RootState) => state.UserReducer)
   // TODO: Добавить предварительную загрузку
   return (
     <Paper
