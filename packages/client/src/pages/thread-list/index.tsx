@@ -33,7 +33,7 @@ export default function ThreadList() {
                   variant={'subtle'}
                   size={'compact-md'}
                   rightSection={<IconMessageCircle size={18} />}>
-                  {thread.comments}
+                  {thread.commentsAmount}
                 </Button>
               </Box>
             </Paper>

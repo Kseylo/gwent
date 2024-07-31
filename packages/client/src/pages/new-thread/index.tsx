@@ -1,9 +1,9 @@
 import { RichTextEditor } from '@mantine/tiptap'
-import { JSONContent, useEditor } from '@tiptap/react'
-import { StarterKit } from '@tiptap/starter-kit'
+import { JSONContent } from '@tiptap/react'
 import { TextInput, Divider, Button, Container } from '@mantine/core'
 import { isNotEmpty, useForm } from '@mantine/form'
 import styles from './new-thread.module.css'
+import { useEditor } from '@/shared/utils/use-editor'
 
 interface NewThreadValues {
   title: string
@@ -37,7 +37,6 @@ export default function NewThread() {
   })
 
   const editor = useEditor({
-    extensions: [StarterKit],
     content: form.values.content,
     onUpdate: ({ editor }) => {
       const content = editor.getJSON()
