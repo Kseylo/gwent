@@ -2,7 +2,7 @@ import { Avatar, Group, Stack, Text } from '@mantine/core'
 import styles from '@/pages/thread-list/thread-list.module.css'
 import type { IThread } from '@/shared/types/thread'
 
-export default function ThreadHeader({ thread }: { thread: IThread }) {
+export function ThreadHeader({ thread }: { thread: IThread }) {
   return (
     <Group wrap={'nowrap'} gap={'xs'}>
       <Avatar

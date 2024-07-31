@@ -29,6 +29,26 @@ export const dummyThreadListData: IThread[] = [
           ],
         },
       },
+      {
+        id: 2,
+        date: '2024-07-01',
+        author: 'Иван Иванов',
+        authorAvatar: 'https://example.com/avatar1.jpg',
+        content: {
+          type: 'doc',
+          content: [
+            {
+              type: 'paragraph',
+              content: [
+                {
+                  type: 'text',
+                  text: 'Most of these one-liners will be one declaration inside the CSS rule. In some cases, the selector will be more than just a simple element; in others, I will add extra declarations as recommendations for a better experience, thus making them more than a one-liner —my apologies in advance for those cases.',
+                },
+              ],
+            },
+          ],
+        },
+      },
     ],
     content: {
       type: 'doc',

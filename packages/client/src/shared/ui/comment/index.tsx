@@ -1,8 +1,14 @@
 import { IComment } from '@/shared/types/thread'
 import { Avatar, Group, Paper, Text } from '@mantine/core'
-import styles from '@/pages/thread-list/thread-list.module.css'
+import styles from './comment.module.css'
+import { useEditor } from '@/shared/utils/use-editor'
+import { EditorContent } from '@tiptap/react'
 
 export default function Comment({ comment }: { comment: IComment }) {
+  const editor = useEditor({
+    content: comment.content,
+    editable: false,
+  })
   return (
     <Paper withBorder p={'md'}>
       <Group wrap={'nowrap'} gap={'xs'}>
@@ -20,6 +26,7 @@ export default function Comment({ comment }: { comment: IComment }) {
           {comment.date}
         </Text>
       </Group>
+      <EditorContent editor={editor} />
     </Paper>
   )
 }

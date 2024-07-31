@@ -4,7 +4,7 @@ import { Box, Button, Paper, Stack, Text } from '@mantine/core'
 import { IconMessageCircle } from '@tabler/icons-react'
 import styles from './thread-list.module.css'
 import { Routes } from '@/shared/config/routes'
-import ThreadHeader from '@/shared/ui/thread-header'
+import { ThreadHeader } from '@/shared/ui/thread-header'
 
 export default function ThreadList() {
   return (
