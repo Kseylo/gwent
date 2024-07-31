@@ -1,9 +1,10 @@
 import { Link } from 'react-router-dom'
-import { dummyThreadListData } from '@/shared/config/forum'
-import { Avatar, Box, Button, Group, Paper, Stack, Text } from '@mantine/core'
+import { dummyThreadListData } from '@/shared/config/thread'
+import { Box, Button, Paper, Stack, Text } from '@mantine/core'
 import { IconMessageCircle } from '@tabler/icons-react'
 import styles from './thread-list.module.css'
 import { Routes } from '@/shared/config/routes'
+import ThreadHeader from '@/shared/ui/thread-header'
 
 export default function ThreadList() {
   return (
@@ -23,20 +24,7 @@ export default function ThreadList() {
               component={Link}
               to={`${Routes.THREADS}/${thread.id}`}
               withBorder>
-              <Group wrap={'nowrap'} gap={'xs'}>
-                <Avatar
-                  size={'md'}
-                  src={
-                    'https://images.unsplash.com/photo-1526336024174-e58f5cdd8e13?q=80&w=3087&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
-                  }
-                />
-                <Stack gap={'0'}>
-                  <Text className={styles.author}>{thread.author}</Text>
-                  <Text size="xs" c="dimmed">
-                    {thread.date}
-                  </Text>
-                </Stack>
-              </Group>
+              <ThreadHeader thread={thread} />
               <Box mt={'xs'} ml={'3rem'}>
                 <Text className={styles.title} mb={'xs'}>
                   {thread.title}
