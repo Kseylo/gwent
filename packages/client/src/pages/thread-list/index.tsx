@@ -1,23 +1,27 @@
-import { Link, useLocation } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { dummyThreadListData } from '@/shared/config/forum'
 import { Avatar, Box, Button, Group, Paper, Stack, Text } from '@mantine/core'
 import { IconMessageCircle } from '@tabler/icons-react'
 import styles from './thread-list.module.css'
+import { Routes } from '@/shared/config/routes'
 
 export default function ThreadList() {
-  const location = useLocation()
-
   return (
     <Box>
       <Stack gap={'xl'}>
-        <Button style={{ placeSelf: 'start' }}>Создать тред</Button>
+        <Button
+          style={{ placeSelf: 'start' }}
+          component={Link}
+          to={`${Routes.THREADS}/new`}>
+          Создать тред
+        </Button>
         <Stack>
           {dummyThreadListData.map(thread => (
             <Paper
               key={thread.id}
               className={styles.thread}
               component={Link}
-              to={`${location.pathname}/${thread.id}`}
+              to={`${Routes.THREADS}/${thread.id}`}
               withBorder>
               <Group wrap={'nowrap'} gap={'xs'}>
                 <Avatar

@@ -1,5 +1,5 @@
 import './App.css'
-import { useEffect } from "react";
+import { useEffect } from 'react'
 import { createTheme, MantineProvider } from '@mantine/core'
 import { Notifications } from '@mantine/notifications'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
@@ -15,9 +15,10 @@ import AuthLayout from './ui/auth-layout'
 import RootLayout from './ui/root-layout'
 import ProtectedLayout from './ui/protected-layout'
 import RootBoundary from './ui/root-boundary'
-import { useSelector } from 'react-redux';
-import { getUser } from "@/store/reducers/user-reducer";
-import { RootState, useAppDispatch } from '@/store';
+import { useSelector } from 'react-redux'
+import { getUser } from '@/store/reducers/user-reducer'
+import { RootState, useAppDispatch } from '@/store'
+import NewThread from '@/pages/new-thread'
 const theme = createTheme({})
 
 const router = createBrowserRouter([
@@ -43,6 +44,10 @@ const router = createBrowserRouter([
           {
             path: `${Routes.THREADS}/:id`,
             element: <Thread />,
+          },
+          {
+            path: `${Routes.THREADS}/new`,
+            element: <NewThread />,
           },
           {
             path: `${Routes.THREADS}/:slug/:threadId`,
@@ -74,7 +79,7 @@ const router = createBrowserRouter([
 ])
 
 const App = () => {
-  const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch()
   // const user = useSelector((state: RootState) => state.UserReducer.user)
 
   useEffect(() => {
@@ -88,4 +93,4 @@ const App = () => {
     </MantineProvider>
   )
 }
-export default App;
+export default App

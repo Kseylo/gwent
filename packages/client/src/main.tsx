@@ -5,6 +5,7 @@ import { Provider } from 'react-redux'
 import './index.css'
 import '@mantine/core/styles.css'
 import '@mantine/notifications/styles.css'
+import '@mantine/tiptap/styles.css'
 import App from './app/App'
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
