@@ -1,5 +1,5 @@
 import './App.css'
-import { useEffect } from "react";
+import { useEffect } from 'react'
 import { createTheme, MantineProvider } from '@mantine/core'
 import { Notifications } from '@mantine/notifications'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
@@ -10,15 +10,15 @@ import Profile from '@/pages/profile'
 import Forum, { loader as forumLoader } from '@/pages/forum'
 import Thread from '@/pages/thread'
 import ForumList from '@/pages/forum-list'
-import Leaderboard from '@/pages/leaderboard'
 import { Routes } from '@/shared/config/routes'
 import AuthLayout from './ui/auth-layout'
 import RootLayout from './ui/root-layout'
 import ProtectedLayout from './ui/protected-layout'
 import RootBoundary from './ui/root-boundary'
-import { useSelector } from 'react-redux';
-import { getUser } from "@/store/reducers/user-reducer";
-import { RootState, useAppDispatch } from '@/store';
+import { useSelector } from 'react-redux'
+import { getUser } from '@/store/reducers/user-reducer'
+import { RootState, useAppDispatch } from '@/store'
+import LeaderBoard from '@/pages/leader-board'
 const theme = createTheme({})
 
 const router = createBrowserRouter([
@@ -51,8 +51,8 @@ const router = createBrowserRouter([
             element: <Thread />,
           },
           {
-            path: Routes.LEADERBOARD,
-            element: <Leaderboard />,
+            path: Routes.LEADER_BOARD,
+            element: <LeaderBoard />,
           },
         ],
       },
@@ -76,7 +76,7 @@ const router = createBrowserRouter([
 ])
 
 const App = () => {
-  const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch()
   // const user = useSelector((state: RootState) => state.UserReducer.user)
 
   useEffect(() => {
@@ -90,4 +90,4 @@ const App = () => {
     </MantineProvider>
   )
 }
-export default App;
+export default App

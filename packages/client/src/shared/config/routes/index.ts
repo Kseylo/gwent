@@ -11,5 +11,5 @@ export const navLinks = [
   { label: 'Главная', href: Routes.HOME },
   { label: 'Профиль', href: Routes.PROFILE },
   { label: 'Форум', href: Routes.FORUM },
-  { label: 'Лидерборд', href: Routes.LEADERBOARD },
+  { label: 'Лидерборд', href: Routes.LEADER_BOARD },
 ]
