@@ -4,12 +4,12 @@ export enum Routes {
   SIGN_UP = '/sign-up',
   PROFILE = '/profile',
   THREADS = '/threads',
-  LEADERBOARD = '/leaderboard',
+  LEADER_BOARD = '/leader-board',
 }
 
 export const navLinks = [
   { label: 'Главная', href: Routes.HOME },
   { label: 'Профиль', href: Routes.PROFILE },
   { label: 'Треды', href: Routes.THREADS },
-  { label: 'Лидерборд', href: Routes.LEADERBOARD },
+  { label: 'Лидерборд', href: Routes.LEADER_BOARD },
 ]

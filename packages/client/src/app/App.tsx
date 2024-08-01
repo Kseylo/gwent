@@ -8,8 +8,8 @@ import SignIn, { action as signInAction } from '@/pages/sign-in'
 import SignUp, { action as signUpAction } from '@/pages/sign-up'
 import Profile from '@/pages/profile'
 import Thread from '@/pages/thread'
+
 import ThreadList from '@/pages/thread-list'
-import Leaderboard from '@/pages/leaderboard'
 import { Routes } from '@/shared/config/routes'
 import AuthLayout from './ui/auth-layout'
 import RootLayout from './ui/root-layout'
@@ -19,6 +19,7 @@ import { useSelector } from 'react-redux'
 import { getUser } from '@/store/reducers/user-reducer'
 import { RootState, useAppDispatch } from '@/store'
 import NewThread from '@/pages/new-thread'
+import LeaderBoard from '@/pages/leader-board
 const theme = createTheme({})
 
 const router = createBrowserRouter([
@@ -54,8 +55,8 @@ const router = createBrowserRouter([
             element: <Thread />,
           },
           {
-            path: Routes.LEADERBOARD,
-            element: <Leaderboard />,
+            path: Routes.LEADER_BOARD,
+            element: <LeaderBoard />,
           },
         ],
       },
