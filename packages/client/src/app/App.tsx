@@ -7,9 +7,8 @@ import Home from '@/pages/home'
 import SignIn, { action as signInAction } from '@/pages/sign-in'
 import SignUp, { action as signUpAction } from '@/pages/sign-up'
 import Profile from '@/pages/profile'
-import Forum, { loader as forumLoader } from '@/pages/forum'
 import Thread from '@/pages/thread'
-import ForumList from '@/pages/forum-list'
+import ThreadList from '@/pages/thread-list'
 import { Routes } from '@/shared/config/routes'
 import AuthLayout from './ui/auth-layout'
 import RootLayout from './ui/root-layout'
@@ -18,6 +17,7 @@ import RootBoundary from './ui/root-boundary'
 import { useSelector } from 'react-redux'
 import { getUser } from '@/store/reducers/user-reducer'
 import { RootState, useAppDispatch } from '@/store'
+import NewThread from '@/pages/new-thread'
 import LeaderBoard from '@/pages/leader-board'
 const theme = createTheme({})
 
@@ -38,16 +38,19 @@ const router = createBrowserRouter([
             element: <Profile />,
           },
           {
-            path: Routes.FORUM,
-            element: <ForumList />,
+            path: Routes.THREADS,
+            element: <ThreadList />,
           },
           {
-            path: `${Routes.FORUM}/:slug`,
-            element: <Forum />,
-            loader: forumLoader,
+            path: `${Routes.THREADS}/:id`,
+            element: <Thread />,
           },
           {
-            path: `${Routes.FORUM}/:slug/thread/:threadId`,
+            path: `${Routes.THREADS}/new`,
+            element: <NewThread />,
+          },
+          {
+            path: `${Routes.THREADS}/:slug/:threadId`,
             element: <Thread />,
           },
           {

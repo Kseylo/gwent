@@ -1,0 +1,21 @@
+.thread {
+  padding: var(--mantine-spacing-md);
+  cursor: pointer;
+  max-width: 40rem;
+  text-decoration: inherit;
+  color: inherit;
+
+  @mixin hover {
+    background-color: var(--mantine-color-default-hover);
+  }
+}
+
+.title {
+  font-weight: 700;
+  font-size: var(--mantine-font-size-xl);
+  color: var(--mantine-color-gray-1);
+}
+
+.author {
+  font-weight: 500;
+}
