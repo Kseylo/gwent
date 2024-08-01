@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { dummyThreadListData } from '@/shared/config/thread'
+import { DUMMY_THREAD_LIST_DATA } from '@/shared/config/thread'
 import { Box, Button, Paper, Stack, Text } from '@mantine/core'
 import { IconMessageCircle } from '@tabler/icons-react'
 import styles from './thread-list.module.css'
@@ -17,7 +17,7 @@ export default function ThreadList() {
           Создать тред
         </Button>
         <Stack>
-          {dummyThreadListData.map(thread => (
+          {DUMMY_THREAD_LIST_DATA.map(thread => (
             <Paper
               key={thread.id}
               className={styles.thread}

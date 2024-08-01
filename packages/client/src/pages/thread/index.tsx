@@ -1,5 +1,5 @@
 import { Container, Divider, Paper, Stack, Title } from '@mantine/core'
-import { dummyThreadListData } from '@/shared/config/thread'
+import { DUMMY_THREAD_LIST_DATA } from '@/shared/config/thread'
 import { ThreadHeader } from '@/shared/ui/thread-header'
 import { EditorContent } from '@tiptap/react'
 import Comment from '@/shared/ui/comment'
@@ -7,7 +7,7 @@ import { useEditor } from '@/shared/utils/use-editor'
 import { AddComment } from '@/widgets/add-comment'
 
 export default function Thread() {
-  const thread = dummyThreadListData[0]
+  const thread = DUMMY_THREAD_LIST_DATA[0]
   const editor = useEditor({
     content: thread.content,
     editable: false,

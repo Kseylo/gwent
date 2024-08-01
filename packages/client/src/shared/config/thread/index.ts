@@ -1,6 +1,6 @@
 import type { IThread } from '@/shared/types/thread'
 
-export const dummyThreadListData: IThread[] = [
+export const DUMMY_THREAD_LIST_DATA: IThread[] = [
   {
     id: 1,
     title: 'Новая технология в облачных вычислениях',
