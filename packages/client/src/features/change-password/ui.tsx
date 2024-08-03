@@ -32,12 +32,14 @@ export function ChangePasswordForm({
           label="Старый пароль"
           placeholder="Старый пароль"
           withAsterisk
+          autoComplete="current-password"
           {...form.getInputProps('oldPassword')}
         />
         <PasswordInput
           label="Новый пароль"
           placeholder="Новый пароль"
           withAsterisk
+          autoComplete="new-password"
           {...form.getInputProps('newPassword')}
         />
         <Button color="red" onClick={onCancel}>

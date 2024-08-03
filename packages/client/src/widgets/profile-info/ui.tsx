@@ -47,6 +47,7 @@ export function ProfileInfo({
           placeholder="example@email.ru"
           readOnly={!isEdit}
           withAsterisk
+          autoComplete="email"
           {...form.getInputProps('email')}
         />
         <InputBase
@@ -54,6 +55,7 @@ export function ProfileInfo({
           placeholder="test_1234"
           readOnly={!isEdit}
           withAsterisk
+          autoComplete="nickname"
           {...form.getInputProps('login')}
         />
         <InputBase
@@ -61,12 +63,14 @@ export function ProfileInfo({
           placeholder="Иван"
           readOnly={!isEdit}
           withAsterisk
+          autoComplete="given-name"
           {...form.getInputProps('first_name')}
         />
         <InputBase
           label="Фамилия"
           placeholder="Иванов"
           readOnly={!isEdit}
+          autoComplete="family-name"
           {...form.getInputProps('second_name')}
         />
         <InputBase
@@ -74,6 +78,7 @@ export function ProfileInfo({
           placeholder="ivanivanov"
           readOnly={!isEdit}
           withAsterisk
+          autoComplete="name"
           {...form.getInputProps('display_name')}
         />
         <InputBase
@@ -83,6 +88,7 @@ export function ProfileInfo({
           mask="+7 (000) 000-00-00"
           readOnly={!isEdit}
           withAsterisk
+          autoComplete="tel"
           {...form.getInputProps('phone')}
         />
         {isEdit ? (
