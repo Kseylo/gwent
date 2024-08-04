@@ -1,15 +1,8 @@
-import { Button, Container, Stack } from '@mantine/core'
-import { useEffect, useRef, useState } from 'react'
-
-const enum GameState {
-  START = 'START',
-  RUNNING = 'RUNNING',
-  END = 'END',
-}
+import { Container } from '@mantine/core'
+import { useEffect, useRef } from 'react'
+import { GameEngine } from '@/shared/utils/game'
 
 export default function Game() {
-  const [gameState, setGameState] = useState<GameState>(GameState.START)
-
   const canvasRef = useRef<HTMLCanvasElement>(null)
 
   useEffect(() => {
@@ -22,16 +15,21 @@ export default function Game() {
     if (!ctx) {
       throw new Error('Canvas context is not defined')
     }
+    const gameEngine = new GameEngine({
+      canvas,
+      ctx,
+    })
+    gameEngine.init()
   }, [])
 
   return (
     <Container>
-      <Stack>
-        <canvas ref={canvasRef} style={{ border: '1px solid black' }} />
-        <Button size={'xl'}>
-          {gameState === GameState.START ? 'Начать игру' : 'Сыграть еще раз'}
-        </Button>
-      </Stack>
+      <canvas
+        ref={canvasRef}
+        width="480"
+        height="320"
+        style={{ border: '1px solid black' }}
+      />
     </Container>
   )
 }
