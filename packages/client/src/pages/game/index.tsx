@@ -1,6 +1,7 @@
-import { Container } from '@mantine/core'
+import { Center } from '@mantine/core'
 import { useEffect, useRef } from 'react'
 import { GameEngine } from '@/shared/utils/game'
+import { CANVAS_WIDTH, CANVAS_HEIGHT } from '@/shared/utils/game/config'
 
 export default function Game() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
@@ -23,13 +24,13 @@ export default function Game() {
   }, [])
 
   return (
-    <Container>
+    <Center>
       <canvas
         ref={canvasRef}
-        width="480"
-        height="320"
+        width={CANVAS_WIDTH}
+        height={CANVAS_HEIGHT}
         style={{ border: '1px solid black' }}
       />
-    </Container>
+    </Center>
   )
 }
