@@ -11,6 +11,8 @@ export class GameField {
   ctx: CanvasRenderingContext2D
   highlightedRow: number | null = null
   rows: Card[][] = [[], [], [], []]
+  playerStrength = 0
+  opponentStrength = 0
 
   constructor(ctx: CanvasRenderingContext2D) {
     this.ctx = ctx
@@ -20,6 +22,7 @@ export class GameField {
     this._drawRows()
     this._drawFieldBorder()
     this._drawMiddleLine()
+    this._drawPlayerStrength()
   }
 
   private _drawRows() {
@@ -47,8 +50,26 @@ export class GameField {
     )
   }
 
+  private _drawPlayerStrength() {
+    const { ctx } = this
+    ctx.fillStyle = '#000'
+    ctx.fillText(
+      this.playerStrength.toString(),
+      GAME_FIELD_LEFT_INDENT / 2,
+      GAME_FIELD_HEIGHT - 50
+    )
+  }
+
   private _calculateRowStrength(rowIndex: number) {
     return this.rows[rowIndex].reduce((sum, card) => sum + card.strength, 0)
+  }
+
+  private _calculateTotalStrength(rows: Card[][]) {
+    return rows.reduce(
+      (sum, row) =>
+        sum + row.reduce((rowSum, card) => rowSum + card.strength, 0),
+      0
+    )
   }
 
   private _drawFieldBorder() {
@@ -76,5 +97,11 @@ export class GameField {
 
   addCardToRow(card: Card, rowIndex: number) {
     this.rows[rowIndex].push(card)
+    this._updateStrength()
+  }
+
+  private _updateStrength() {
+    this.opponentStrength = this._calculateTotalStrength(this.rows.slice(0, 2))
+    this.playerStrength = this._calculateTotalStrength(this.rows.slice(2))
   }
 }
