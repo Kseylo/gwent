@@ -91,6 +91,7 @@ export class GameEngine {
         this.selectedCard.y = rowIndex * (ROW_HEIGHT + ROW_SPACING)
         this.selectedCard.selected = false
         this.selectedCard.isInField = true
+        this.gameField.addCardToRow(this.selectedCard, rowIndex)
         this.selectedCard = null
         this.gameField.highlightedRow = null
         return
