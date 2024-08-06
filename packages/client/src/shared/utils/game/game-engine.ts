@@ -68,41 +68,77 @@ export class GameEngine {
   }
 
   handleClick(e: MouseEvent) {
-    const rect = this.canvas.getBoundingClientRect()
-    const x = e.clientX - rect.left
-    const y = e.clientY - rect.top
+    const { x, y } = this._getClickCoordinates(e)
 
     if (this.selectedCard) {
-      const rowIndex = this.gameField.getRowIndex(y)
-      const isCorrectRow =
-        (this.selectedCard.type === CARD_TYPE.MELEE && rowIndex === 2) ||
-        (this.selectedCard.type === CARD_TYPE.RANGED && rowIndex === 3)
-
-      if (isCorrectRow) {
-        this.selectedCard.x = GAME_FIELD_LEFT_INDENT + 10
-        this.selectedCard.y = rowIndex * (ROW_HEIGHT + ROW_SPACING)
-        this.selectedCard.selected = false
-        this.selectedCard.isInField = true
-        this.gameField.addCardToRow(this.selectedCard, rowIndex)
-        this.selectedCard = null
-        this.gameField.highlightedRow = null
-        return
+      if (this.selectedCard.isClicked(x, y)) {
+        this._deselectCard()
+      } else {
+        this._handleCardPlacement(y)
       }
+    } else {
+      this._handleCardSelection(x, y)
     }
+  }
 
+  private _getClickCoordinates(e: MouseEvent) {
+    const rect = this.canvas.getBoundingClientRect()
+    return {
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top,
+    }
+  }
+
+  private _handleCardPlacement(y: number) {
+    if (!this.selectedCard) return
+
+    const rowIndex = this.gameField.getRowIndex(y)
+    const isCorrectRow =
+      (this.selectedCard.type === CARD_TYPE.MELEE && rowIndex === 2) ||
+      (this.selectedCard.type === CARD_TYPE.RANGED && rowIndex === 3)
+
+    if (isCorrectRow) {
+      this._placeCard(rowIndex)
+    }
+  }
+
+  private _placeCard(rowIndex: number) {
+    if (!this.selectedCard) return
+
+    this.selectedCard.x = GAME_FIELD_LEFT_INDENT + 10
+    this.selectedCard.y = rowIndex * (ROW_HEIGHT + ROW_SPACING)
+    this.selectedCard.isInField = true
+    this.gameField.addCardToRow(this.selectedCard, rowIndex)
+    this._deselectCard()
+  }
+
+  private _handleCardSelection(x: number, y: number) {
     this.deck.cards.forEach(card => {
       if (!card.isInField && card.isClicked(x, y)) {
-        card.selected = !card.selected
-        this.selectedCard = card.selected ? card : null
-        if (this.selectedCard) {
-          this.gameField.highlightedRow =
-            this.selectedCard.type === CARD_TYPE.MELEE ? 2 : 3
-        } else {
-          this.gameField.highlightedRow = null
-        }
-      } else {
-        card.selected = false
+        this._selectCard(card)
       }
     })
+  }
+
+  private _selectCard(card: Card) {
+    card.selected = true
+    this.selectedCard = card
+    this._highlightRowBasedOnCardType(this.selectedCard)
+  }
+
+  private _highlightRowBasedOnCardType(card: Card | null) {
+    if (card) {
+      this.gameField.highlightedRow = card.type === CARD_TYPE.MELEE ? 2 : 3
+    } else {
+      this.gameField.highlightedRow = null
+    }
+  }
+
+  private _deselectCard() {
+    if (!this.selectedCard) return
+
+    this.selectedCard.selected = false
+    this.selectedCard = null
+    this.gameField.highlightedRow = null
   }
 }
