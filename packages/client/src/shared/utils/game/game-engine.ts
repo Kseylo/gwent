@@ -9,7 +9,7 @@ import {
 } from './config'
 import { GameField } from './game-field'
 import { Deck } from './deck'
-import { UI } from './ui'
+import { PlayerHand } from './player-hand'
 
 export class GameEngine {
   canvas: HTMLCanvasElement
@@ -17,6 +17,7 @@ export class GameEngine {
 
   deck: Deck
   gameField: GameField
+  playerHand: PlayerHand
   selectedCard: Card | null = null
 
   constructor(config: {
@@ -27,6 +28,7 @@ export class GameEngine {
     this.ctx = config.ctx
 
     this.gameField = new GameField(this.ctx)
+    this.playerHand = new PlayerHand()
     this.deck = new Deck({
       ctx: this.ctx,
       cards: [
@@ -57,7 +59,7 @@ export class GameEngine {
       this.ctx.fillStyle = '#fff'
       this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height)
       this.gameField.draw()
-      UI.drawPlayerHand(this.ctx, this.canvas)
+      this.playerHand.draw(this.ctx, this.canvas)
       this.deck.draw()
 
       requestAnimationFrame(step)
