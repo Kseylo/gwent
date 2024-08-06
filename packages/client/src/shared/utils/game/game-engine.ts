@@ -3,14 +3,13 @@ import {
   CARD_HEIGHT,
   CARD_TYPE,
   CARD_WIDTH,
-  DECK_HEIGHT,
-  DECK_WIDTH,
   GAME_FIELD_LEFT_INDENT,
   ROW_HEIGHT,
   ROW_SPACING,
 } from './config'
 import { GameField } from './game-field'
 import { Deck } from './deck'
+import { UI } from './ui'
 
 export class GameEngine {
   canvas: HTMLCanvasElement
@@ -58,21 +57,12 @@ export class GameEngine {
       this.ctx.fillStyle = '#fff'
       this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height)
       this.gameField.draw()
-      this.drawPlayerHand()
+      UI.drawPlayerHand(this.ctx, this.canvas)
       this.deck.draw()
 
       requestAnimationFrame(step)
     }
     step()
-  }
-
-  drawPlayerHand() {
-    const { ctx, canvas } = this
-
-    ctx.fillStyle = '#e0e0e0'
-    ctx.fillRect(0, canvas.height - CARD_HEIGHT, DECK_WIDTH, DECK_HEIGHT)
-    ctx.strokeStyle = '#000'
-    ctx.strokeRect(0, canvas.height - CARD_HEIGHT, DECK_WIDTH, DECK_HEIGHT)
   }
 
   handleClick(e: MouseEvent) {
