@@ -10,12 +10,13 @@ import {
   ROW_SPACING,
 } from './config'
 import { GameField } from './game-field'
+import { Deck } from './deck'
 
 export class GameEngine {
   canvas: HTMLCanvasElement
   ctx: CanvasRenderingContext2D
 
-  deck: Card[] = []
+  deck: Deck
   gameField: GameField
   selectedCard: Card | null = null
 
@@ -27,21 +28,23 @@ export class GameEngine {
     this.ctx = config.ctx
 
     this.gameField = new GameField(this.ctx)
-
-    this.deck = [
-      new Card({
-        x: 10,
-        y: this.canvas.height - CARD_HEIGHT,
-        strength: 5,
-        type: CARD_TYPE.MELEE,
-      }),
-      new Card({
-        x: CARD_WIDTH + 20,
-        y: this.canvas.height - CARD_HEIGHT,
-        strength: 3,
-        type: CARD_TYPE.RANGED,
-      }),
-    ]
+    this.deck = new Deck({
+      ctx: this.ctx,
+      cards: [
+        new Card({
+          x: 10,
+          y: this.canvas.height - CARD_HEIGHT,
+          strength: 5,
+          type: CARD_TYPE.MELEE,
+        }),
+        new Card({
+          x: CARD_WIDTH + 20,
+          y: this.canvas.height - CARD_HEIGHT,
+          strength: 3,
+          type: CARD_TYPE.RANGED,
+        }),
+      ],
+    })
   }
 
   init() {
@@ -56,7 +59,7 @@ export class GameEngine {
       this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height)
       this.gameField.draw()
       this.drawPlayerHand()
-      this.deck.forEach(card => card.draw(this.ctx))
+      this.deck.draw()
 
       requestAnimationFrame(step)
     }
@@ -94,7 +97,7 @@ export class GameEngine {
       }
     }
 
-    this.deck.forEach(card => {
+    this.deck.cards.forEach(card => {
       if (!card.isInField && card.isClicked(x, y)) {
         card.selected = !card.selected
         this.selectedCard = card.selected ? card : null
