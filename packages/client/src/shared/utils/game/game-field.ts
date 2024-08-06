@@ -8,6 +8,7 @@ import {
 
 export class GameField {
   ctx: CanvasRenderingContext2D
+  highlightedRow: number | null = null
 
   constructor(ctx: CanvasRenderingContext2D) {
     this.ctx = ctx
@@ -16,11 +17,14 @@ export class GameField {
   draw() {
     const { ctx } = this
 
-    ctx.fillStyle = '#e0e0e0'
-
     // Отрисовка полей
     for (let i = 0; i < 4; i++) {
       const y = i * (ROW_HEIGHT + ROW_SPACING)
+      if (this.highlightedRow === i) {
+        ctx.fillStyle = '#fef9c3'
+      } else {
+        ctx.fillStyle = '#e0e0e0'
+      }
       ctx.fillRect(GAME_FIELD_LEFT_INDENT, y, GAME_FIELD_WIDTH, ROW_HEIGHT)
     }
 
@@ -38,5 +42,9 @@ export class GameField {
     ctx.moveTo(GAME_FIELD_LEFT_INDENT, GAME_FIELD_HEIGHT / 2)
     ctx.lineTo(GAME_FIELD_WIDTH + GAME_FIELD_LEFT_INDENT, GAME_FIELD_HEIGHT / 2)
     ctx.stroke()
+  }
+
+  getRowIndex(y: number) {
+    return Math.floor(y / (ROW_HEIGHT + ROW_SPACING))
   }
 }

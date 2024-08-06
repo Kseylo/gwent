@@ -3,6 +3,10 @@ export const CANVAS_HEIGHT = 720
 
 export const CARD_WIDTH = 100
 export const CARD_HEIGHT = 150
+export enum CARD_TYPE {
+  MELEE = 'MELEE',
+  RANGED = 'RANGED',
+}
 
 export const DECK_WIDTH = CANVAS_WIDTH
 export const DECK_HEIGHT = CANVAS_HEIGHT - CARD_HEIGHT
