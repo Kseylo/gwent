@@ -2,7 +2,7 @@ export const CANVAS_WIDTH = 1080
 export const CANVAS_HEIGHT = 720
 
 export const CARD_WIDTH = 100
-export const CARD_HEIGHT = 150
+export const CARD_HEIGHT = 140
 export enum CARD_TYPE {
   MELEE = 'MELEE',
   RANGED = 'RANGED',
