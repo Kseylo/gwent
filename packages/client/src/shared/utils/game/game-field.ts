@@ -5,42 +5,41 @@ import {
   ROW_HEIGHT,
   ROW_SPACING,
 } from './config'
-import { Card } from '@/shared/utils/game/card'
+import { GameBoard } from './game-board'
 
 export class GameField {
   ctx: CanvasRenderingContext2D
   highlightedRow: number | null = null
-  rows: Card[][] = [[], [], [], []]
-  playerStrength = 0
-  opponentStrength = 0
+  gameBoard: GameBoard
 
-  constructor(ctx: CanvasRenderingContext2D) {
+  constructor(ctx: CanvasRenderingContext2D, gameBoard: GameBoard) {
     this.ctx = ctx
+    this.gameBoard = gameBoard
   }
 
   draw() {
-    this._drawRows()
-    this._drawFieldBorder()
-    this._drawMiddleLine()
-    this._drawPlayerStrength()
+    this.drawRows()
+    this.drawFieldBorder()
+    this.drawMiddleLine()
+    this.drawPlayerStrength()
   }
 
-  private _drawRows() {
+  private drawRows() {
     for (let i = 0; i < 4; i++) {
       const y = i * (ROW_HEIGHT + ROW_SPACING)
-      this._drawRow(i, y)
-      this._drawRowStrength(i, y)
+      this.drawRow(i, y)
+      this.drawRowStrength(i, y)
     }
   }
 
-  private _drawRow(rowIndex: number, y: number) {
+  private drawRow(rowIndex: number, y: number) {
     const { ctx } = this
     ctx.fillStyle = this.highlightedRow === rowIndex ? '#fef9c3' : '#e0e0e0'
     ctx.fillRect(GAME_FIELD_LEFT_INDENT, y, GAME_FIELD_WIDTH, ROW_HEIGHT)
   }
 
-  private _drawRowStrength(rowIndex: number, y: number) {
-    const rowStrength = this._calculateRowStrength(rowIndex)
+  private drawRowStrength(rowIndex: number, y: number) {
+    const rowStrength = this.gameBoard.calculateRowStrength(rowIndex)
     const { ctx } = this
     ctx.fillStyle = '#000'
     ctx.fillText(
@@ -50,29 +49,17 @@ export class GameField {
     )
   }
 
-  private _drawPlayerStrength() {
+  private drawPlayerStrength() {
     const { ctx } = this
     ctx.fillStyle = '#000'
     ctx.fillText(
-      this.playerStrength.toString(),
+      this.gameBoard.playerStrength.toString(),
       GAME_FIELD_LEFT_INDENT / 2,
       GAME_FIELD_HEIGHT - 50
     )
   }
 
-  private _calculateRowStrength(rowIndex: number) {
-    return this.rows[rowIndex].reduce((sum, card) => sum + card.strength, 0)
-  }
-
-  private _calculateTotalStrength(rows: Card[][]) {
-    return rows.reduce(
-      (sum, row) =>
-        sum + row.reduce((rowSum, card) => rowSum + card.strength, 0),
-      0
-    )
-  }
-
-  private _drawFieldBorder() {
+  private drawFieldBorder() {
     const { ctx } = this
     ctx.strokeStyle = '#000'
     ctx.strokeRect(
@@ -83,25 +70,11 @@ export class GameField {
     )
   }
 
-  private _drawMiddleLine() {
+  private drawMiddleLine() {
     const { ctx } = this
     ctx.beginPath()
     ctx.moveTo(GAME_FIELD_LEFT_INDENT, GAME_FIELD_HEIGHT / 2)
     ctx.lineTo(GAME_FIELD_WIDTH + GAME_FIELD_LEFT_INDENT, GAME_FIELD_HEIGHT / 2)
     ctx.stroke()
-  }
-
-  getRowIndex(y: number) {
-    return Math.floor(y / (ROW_HEIGHT + ROW_SPACING))
-  }
-
-  addCardToRow(card: Card, rowIndex: number) {
-    this.rows[rowIndex].push(card)
-    this._updateStrength()
-  }
-
-  private _updateStrength() {
-    this.opponentStrength = this._calculateTotalStrength(this.rows.slice(0, 2))
-    this.playerStrength = this._calculateTotalStrength(this.rows.slice(2))
   }
 }

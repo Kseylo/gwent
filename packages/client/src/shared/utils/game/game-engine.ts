@@ -8,8 +8,14 @@ import {
   ROW_SPACING,
 } from './config'
 import { GameField } from './game-field'
+import { GameBoard } from './game-board' // Новый класс
 import { Deck } from './deck'
 import { PlayerHand } from './player-hand'
+
+interface GameEngineConfig {
+  canvas: HTMLCanvasElement
+  ctx: CanvasRenderingContext2D
+}
 
 export class GameEngine {
   canvas: HTMLCanvasElement
@@ -17,17 +23,16 @@ export class GameEngine {
 
   deck: Deck
   gameField: GameField
+  gameBoard: GameBoard
   playerHand: PlayerHand
   selectedCard: Card | null = null
 
-  constructor(config: {
-    canvas: HTMLCanvasElement
-    ctx: CanvasRenderingContext2D
-  }) {
+  constructor(config: GameEngineConfig) {
     this.canvas = config.canvas
     this.ctx = config.ctx
 
-    this.gameField = new GameField(this.ctx)
+    this.gameBoard = new GameBoard()
+    this.gameField = new GameField(this.ctx, this.gameBoard)
     this.playerHand = new PlayerHand()
     this.deck = new Deck({
       ctx: this.ctx,
@@ -58,7 +63,7 @@ export class GameEngine {
       this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
       this.ctx.fillStyle = '#fff'
       this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height)
-      this.gameField.draw()
+      this.gameField.draw() // Визуализация обновляется через GameField
       this.playerHand.draw(this.ctx, this.canvas)
       this.deck.draw()
 
@@ -92,7 +97,11 @@ export class GameEngine {
   private _handleCardPlacement(y: number) {
     if (!this.selectedCard) return
 
-    const rowIndex = this.gameField.getRowIndex(y)
+    const rowIndex = this.gameField.gameBoard.getRowIndex(
+      y,
+      ROW_HEIGHT,
+      ROW_SPACING
+    )
     const isCorrectRow =
       (this.selectedCard.type === CARD_TYPE.MELEE && rowIndex === 2) ||
       (this.selectedCard.type === CARD_TYPE.RANGED && rowIndex === 3)
@@ -108,7 +117,7 @@ export class GameEngine {
     this.selectedCard.x = GAME_FIELD_LEFT_INDENT + 10
     this.selectedCard.y = rowIndex * (ROW_HEIGHT + ROW_SPACING)
     this.selectedCard.isInField = true
-    this.gameField.addCardToRow(this.selectedCard, rowIndex)
+    this.gameBoard.addCardToRow(this.selectedCard, rowIndex)
     this._deselectCard()
   }
 
