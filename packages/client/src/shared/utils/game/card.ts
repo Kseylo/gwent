@@ -1,10 +1,11 @@
-import { CARD_HEIGHT, CARD_WIDTH } from './config'
+import { CARD_HEIGHT, CARD_TYPE, CARD_WIDTH } from './config'
 
 export interface CardConfig {
   x?: number
   y?: number
   color?: string
   strength?: number
+  type: CARD_TYPE
 }
 
 export class Card {
@@ -14,12 +15,16 @@ export class Card {
   width = CARD_WIDTH
   height = CARD_HEIGHT
   strength: number
+  type: CARD_TYPE
+  selected = false
+  isInField = false
 
   constructor(config: CardConfig) {
     this.x = config.x || 0
     this.y = config.y || 0
     this.color = config.color || '#000'
     this.strength = config.strength || 1
+    this.type = config.type
   }
 
   draw(ctx: CanvasRenderingContext2D) {
